@@ -37,8 +37,8 @@ def inicio():
     #    2. reemplaza cada {{ vuelo.algo }} con el dato de este diccionario
     #       (por ejemplo {{ vuelo.origen }} → "Guayaquil")
     #    3. envía el HTML ya completo al navegador
-    #return render_template("index.html", vuelo=VUELO)
-    return render_template("inicio.html", vuelo=VUELO)
+    return render_template("index.html", vuelo=VUELO)
+    # return render_template("inicio.html", vuelo=VUELO)
 
 
 # ==============================================================

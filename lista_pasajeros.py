@@ -73,53 +73,93 @@ class ListaPasajeros:
     # ==========================================================
 
     def esta_vacia(self):
-        """Retorna True si no hay ninguna reserva; False si hay al menos una.
-        Pista: mira self.head."""
-        raise NotImplementedError("esta_vacia")
+        return self.cantidad == 0
+        #raise NotImplementedError("esta_vacia")
 
     def longitud(self):
-        """Retorna cuántas reservas hay.
-        Pista: no recorras nada, ya tienes self.cantidad."""
-        raise NotImplementedError("longitud")
+        return self.cantidad
+        #raise NotImplementedError("longitud")
 
     def listar(self):
-        """Retorna una list de Python con TODOS los Pasajero, en orden:
-        desde head hasta el último. Si está vacía retorna [].
-        ⚠ Guarda el pasajero (actual.data), no el nodo.
-        👉 Cuando funcione, ¡el avión se pinta con los asientos ocupados!"""
-        raise NotImplementedError("listar")
+        resultado = []
+        actual = self.head
+        while actual is not None:
+            resultado.append(actual.data)
+            actual = actual.next
+        return resultado
+        #raise NotImplementedError("listar")
 
     def buscar(self, numero):
-        """Búsqueda lineal por número de reserva (int).
-        Retorna el Pasajero encontrado o None si no existe."""
-        raise NotImplementedError("buscar")
+        actual = self.head
+        while actual is not None:
+            if actual.data.numero == numero:
+                return actual.data
+            actual = actual.next
+        return None
+        #raise NotImplementedError("buscar")
 
     def buscar_por_asiento(self, asiento):
-        """Retorna el Pasajero sentado en ese asiento ("7D") o None si está libre.
-        👉 Flask lo usa al hacer clic en un asiento rojo y para no
-           vender dos veces el mismo asiento."""
-        raise NotImplementedError("buscar_por_asiento")
+        actual = self.head
+        while actual is not None:
+            if actual.data.asiento == asiento:
+                return actual.data
+            actual = actual.next
+        return None
+        #raise NotImplementedError("buscar_por_asiento")
 
     def buscar_por_cedula(self, cedula):
-        """Retorna el Pasajero con esa cédula (str) o None.
-        👉 Flask lo usa para que una persona no reserve dos asientos."""
-        raise NotImplementedError("buscar_por_cedula")
+        actual = self.head
+        while actual is not None:
+            if actual.data.cedula == cedula:
+                return actual.data
+            actual = actual.next
+        return None
+        #raise NotImplementedError("buscar_por_cedula")
 
     def modificar(self, numero, nuevo_nombre, nueva_edad, nuevo_asiento):
-        """Cambia nombre, edad y asiento del pasajero con ese número.
-        Usa buscar(). El nodo NO cambia de lugar en la lista: solo cambia su carga.
-        Retorna True si lo modificó, False si no existe."""
-        raise NotImplementedError("modificar")
+        pos = self.buscar(numero)
+        if pos == None:
+            return False
+        pos.nombre = nuevo_nombre
+        pos.edad = nueva_edad
+        pos.asiento = nuevo_asiento
+        return True
+        #raise NotImplementedError("modificar")
 
     def eliminar(self, numero):
-        """Cancela la reserva: desengancha el nodo que tiene ese número.
-        Piensa en los casos: lista vacía · es la cabeza · está en medio o al
-        final · no existe. ¡No olvides restar self.cantidad!
-        Retorna el Pasajero eliminado, o None si no existía."""
-        raise NotImplementedError("eliminar")
+        # A. Lista vacía
+        if self.head is None:
+            return None
+
+        # B. El que se quita es la cabeza
+        if self.head.data.numero == numero:
+            quitado = self.head
+            self.head = self.head.next
+            self.cantidad = self.cantidad - 1
+            return quitado.data
+
+        # C. Buscar el vagón de ATRÁS del que se quiere quitar
+        anterior = self.head
+        while anterior.next is not None and anterior.next.data.numero != numero:
+            anterior = anterior.next
+
+        # D. No existe
+        if anterior.next is None:
+            return None
+
+        # Está en medio o al final: se desengancha
+        quitado = anterior.next
+        anterior.next = quitado.next
+        self.cantidad = self.cantidad - 1
+        return quitado.data
+        # raise NotImplementedError("eliminar")
 
     def filtrar_por_clase(self, clase):
-        """Retorna una list con los pasajeros de esa clase ("Ejecutiva" o
-        "Económica"), en el mismo orden de la lista.
-        Pista: cada pasajero sabe su clase con  pasajero.clase()"""
-        raise NotImplementedError("filtrar_por_clase")
+        resultado = []
+        actual = self.head
+        while actual is not None:
+            if actual.data.clase().lower() == clase.lower():
+                resultado.append(actual.data)
+            actual = actual.next
+        return resultado
+        #raise NotImplementedError("filtrar_por_clase")    
