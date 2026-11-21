@@ -1,0 +1,188 @@
+<!-- primero ejericicio -->
+<style>
+  p { color: #1A73E8; }       /* todos los <p> en azul */
+  h3 { font-style: italic;}  /* todos los <h3> en cursiva */
+</style>
+<h3>Vuelo AE-204</h3>
+<p>Salida 08:00</p>
+<p>Llegada 08:55</p>
+<br>
+<!-- segundo ejericicio -->
+<style>
+  .nodo   { border: 2px solid #7B3FE4; padding: 6px; }  /* class="nodo" */
+  .cabeza{ background: #E8F0FE; }                      /* class="cabeza" */
+</style>
+<div class="nodo cabeza p">Ana (tiene 2 clases)</div>
+<div class="nodo">Luis</div>
+<div>Marta (sin clase: sin estilo)</div>
+<br>
+<!-- tercer ejericicio -->
+<style>
+    #titulo { color: white; background: #E65100; padding: 6px; }
+</style>
+<h3 id="titulo">Puerta de embarque B12</h3>  <!-- id="titulo" -->
+<h3>Otro título sin id</h3>
+<br>
+<style>
+  input[type="text"]   { border: 2px solid #1A73E8; }  /* inputs de texto */
+  input[type="number"] { border: 2px solid #E65100; }  /* inputs numéricos */
+  [data-estado="ocupado"] { background: #FCE8E6; }    /* data-estado="ocupado" */
+</style>
+<input type="text" placeholder="texto">
+<input type="number" placeholder="número">
+<p data-estado="ocupado">Asiento 2B ocupado</p>
+<style>
+  button        { background: #7B3FE4; color: white; border: none; padding: 8px 14px; }
+  button:hover  { background: #ad1447; }        /* mouse encima */
+  button:active { transform: scale(0.95); }     /* mientras haces clic */
+  input:focus   { outline: 3px solid #F9AB00; } /* casilla con el cursor */
+</style>
+<button>Pasa el mouse</button>
+<input placeholder="Haz clic aquí">
+<br>
+<style>
+  .fila { display: flex; gap: 6px; }
+  .fila div { background: #F3E8FD; border: 2px solid #7B3FE4; padding: 8px; }
+  .a { flex: 1; }   /* toma 1 parte del espacio libre */
+  .b { flex: 2; }   /* toma 2 partes: el doble que .a */
+  /* .c no tiene flex: solo mide su contenido */
+</style>
+<div class="fila">
+  <div class="a">flex: 1</div>
+  <div class="b">flex: 2</div>
+  <div class="c">sin flex</div>
+</div>
+<br>
+<style>
+  .fila { display: flex; gap: 6px; height: 90px; align-items: flex-start;
+          background: #F8F9FA; }
+  .fila div { background: #E8F0FE; border: 2px solid #1A73E8; padding: 8px; }
+  .primero { order: -1; }          /* menor order = va antes (por defecto 0) */
+  .abajo { align-self: flex-end; } /* solo este se va abajo */
+</style>
+<div class="fila">
+  <div>Ana</div>
+  <div class="abajo">Luis (align-self)</div>
+  <div class="primero">Marta (order: -1)</div>
+</div>
+<br>
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);   /* 3 columnas iguales */
+    grid-template-rows: 20px 50px;           /* fila 1: 40px, fila 2: 70px */
+    gap: 8px;                                /* espacio entre todas */
+    /* row-gap: 8px; column-gap: 20px;  → distinto en cada sentido */
+  }
+  .grid div { background: #F3E8FD; border: 2px solid #7B3FE4; }
+</style>
+
+<div class="grid">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+  <div>5</div>
+  <div>6</div>
+</div>
+<br>
+<style>
+  .avion {
+    display: grid;
+    grid-template-columns: 40px 40px 24px 40px 40px; /* A B pasillo C D */
+    gap: 6px;
+    justify-content: center;        /* centra la cuadrícula */
+    background: #F1F3F4; padding: 12px; border-radius: 40px 40px 10px 10px;
+  }
+  .asiento {
+    height: 36px; border-radius: 8px 8px 4px 4px;
+    display: flex; justify-content: center; align-items: center; /* centra el texto */
+    font: bold 12px sans-serif;
+  }
+  .libre   { background: #E6F4EA; border: 2px solid #34A853; }  /* 🟢 */
+  .ocupado { background: #FCE8E6; border: 2px solid #EA4335; }  /* 🔴 */
+  .pasillo { grid-column: 3; }      /* fuerza la columna del pasillo */
+</style>
+
+<div class="avion">
+  <div class="asiento libre">1A</div><div class="asiento ocupado">1B</div>
+  <div class="asiento libre" style="grid-column:4">1C</div><div class="asiento libre">1D</div>
+  <div class="asiento ocupado">2A</div><div class="asiento libre">2B</div>
+  <div class="asiento libre" style="grid-column:4">2C</div><div class="asiento ocupado">2D</div>
+</div>
+<!-- style="grid-column:4" salta el pasillo (columna 3) -->
+<br>
+<style>
+  .pagina {
+    display: grid;
+    grid-template-columns: 120px 1fr;   /* menú angosto + contenido */
+    grid-template-areas:
+      "cabecera cabecera"               /* fila 1: cabecera en las 2 columnas */
+      "menu     contenido"              /* fila 2 */
+      "pie      pie";                   /* fila 3 */
+    gap: 6px;
+  }
+  .pagina > * { padding: 10px; border-radius: 6px; color: white; }
+  header { grid-area: cabecera;  background: #1A73E8; }  /* va a "cabecera" */
+  nav    { grid-area: menu;      background: #7B3FE4; }
+  main   { grid-area: contenido; background: #34A853; }
+  footer { grid-area: pie;       background: #5F6368; }
+</style>
+
+<div class="pagina">
+  <header>✈️ Aerolínea</header>
+  <nav>Menú</nav>
+  <main>Lista de pasajeros</main>
+  <footer>© 2026</footer>
+</div>
+<br>
+<!-- 1. INTERNO: dentro de <script>, al final del <body> -->
+<body>
+  <h1>Hola</h1>
+  <script>
+    console.log("Hola desde JS");   // se ve en la consola (F12)
+
+  </script>
+</body>
+
+<!-- 2. EXTERNO: archivo app.js (la mejor opción) -->
+<script src="app.js"></script>
+
+<!-- ¿Por qué al final? Porque JS necesita que el HTML ya exista
+     para poder buscar los elementos. -->
+<br>
+<h3 id="titulo" style="color: gray">Pasajeros</h3>
+<p class="pasajero">Ana</p>
+<p class="pasajero">Luis</p>
+<p class="pasajero">Marta</p>
+
+<script>
+  // Por id → UN elemento
+  const titulo = document.getElementById("titulo");
+  titulo.style.color = "#1A73E8";
+
+  // querySelector → el PRIMERO que coincide con un selector CSS
+  const primero = document.querySelector(".pasajero");
+  primero.style.fontWeight = "bold";
+
+  // querySelectorAll → TODOS (una lista que se recorre)
+  const todos = document.querySelectorAll(".pasajero");
+  todos.forEach(p => p.textContent += " ✔");     // agrega ✔ a cada uno
+  titulo.textContent += ` (${todos.length})`;     // muestra cuántos hay
+</script>
+
+<script>
+  let n = 0;
+  document.getElementById("agregar").onclick = () => {
+    n++;
+    const li = document.createElement("li");   // 1. crea un <li> (aún invisible)
+    li.textContent = `Pasajero ${n} `;         // 2. le pone texto
+
+    const x = document.createElement("button");
+    x.textContent = "❌";
+    x.onclick = () => li.remove();             // remove(): lo borra de la página
+    li.append(x);                              // mete el botón dentro del li
+
+    document.getElementById("lista").append(li); // 3. lo pone en la lista (ya se ve)
+  };
+</script>

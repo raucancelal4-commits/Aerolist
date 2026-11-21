@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+<body>
+    <h1>Uso defectoso</h1>
+</body>
+</html>
+// URL "falsa" que contiene el JSON (en la vida real: "/api/pasajeros")
+const url = 'data:application/json,[{"nombre":"Ana","asiento":"1A"},{"nombre":"Luis","asiento":"2B"}]';
+
+async function cargarPasajeros() {
+  const respuesta = await fetch(url);       // ① pide y espera la respuesta
+  console.log("Estado:", respuesta.status); // 200 = OK
+
+  const datos = await respuesta.json();     // ② convierte el cuerpo JSON → array JS
+  console.log("Recibidos:", datos.length);
+
+  datos.forEach(p => console.log(`${p.nombre} - ${p.asiento}`));  // ③ usar los datos
+}
+
+cargarPasajeros();

@@ -1,0 +1,43 @@
+<style>
+  body { font-family: sans-serif; padding: 16px; }
+  #avion { display: grid; grid-template-columns: repeat(4, 46px); gap: 6px; }   /* 4 columnas */
+  .asiento { height: 40px; border: 0; border-radius: 9px; color: white; font-weight: bold; cursor: pointer; }
+  .libre   { background: #22C55E; }   /* verde */
+  .ocupado { background: #EF4444; }   /* rojo */
+</style>
+
+<p>Reservados: <b id="contador">0</b> de 16</p>
+<div id="avion"></div>   <!-- VACÍO: el JavaScript lo llenará -->
+
+<script>
+  // 1. Buscamos la caja vacía por su id
+  const avion = document.querySelector("#avion");
+  // 2. Las letras de cada fila (un array = una lista)
+  const letras = ["A", "B", "C", "D", "F"];
+  // 3. Un contador (let porque va a cambiar; const no puede cambiar)
+  let reservados = 0;
+
+  // 4. DOBLE RECORRIDO: 4 filas × 4 letras = 16 asientos
+  for (let fila = 1; fila <= 4; fila++) {          // fila++ = fila = fila + 1
+    for (const letra of letras) {                   // como "for letra in letras" de Python
+      const boton = document.createElement("button");   // crea un <button> (todavía no se ve)
+      boton.textContent = fila + letra;            // su texto: "1A", "1B", ...
+      boton.className = "asiento libre";           // sus clases: empieza verde
+
+      // 5. EVENTO: cuando le hagan clic, ejecuta esta función
+      boton.addEventListener("click", () => {
+        if (boton.classList.contains("libre")) {    // ¿tiene la clase "libre"?
+          boton.classList.replace("libre", "ocupado");   // cambia verde → rojo
+          reservados = reservados + 1;
+        } else {
+          boton.classList.replace("ocupado", "libre");   // cambia rojo → verde
+          reservados = reservados - 1;
+        }
+        // actualiza el número en la página
+        document.querySelector("#contador").textContent = reservados;
+      });
+
+      avion.append(boton);                          // 6. lo mete en la caja: ahora SÍ se ve
+    }
+  }
+</script>

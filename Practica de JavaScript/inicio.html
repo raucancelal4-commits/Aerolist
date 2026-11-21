@@ -1,0 +1,92 @@
+<input id="nombre" value="Pedro">
+<p id="a"></p>
+<p id="b"></p>
+
+<script>
+  const input = document.getElementById("nombre");
+  const nombre1= input.value;          // .value = lo escrito en un input
+
+  // textContent: pone TEXTO plano (las etiquetas se ven tal cual)
+  document.getElementById("a").textContent = `<b>${nombre}</b>`;
+
+  // innerHTML: interpreta el texto como HTML (la <b> se vuelve negrita)
+  document.getElementById("b").innerHTML = `<b>${nombre}</b>`;
+
+  input.value = "";                    // vacía la casilla
+</script>
+
+<style>
+  .asiento { display: inline-block; padding: 8px 12px; border-radius: 6px;
+             background: #85f1a4; cursor: pointer; }
+  .ocupado { background: #FCE8E6; text-decoration: line-through; }
+</style>
+
+<div class="asiento" id="s1">1A</div>
+<div class="asiento" id="s2">1B</div>
+<p>👆 Haz clic en los asientos</p>
+
+<script>
+  const s1 = document.getElementById("s1");
+  s1.style.border = "2px solid green";   // style.propiedad (camelCase en JS)
+
+  // classList: la forma correcta de cambiar estilos
+  // add() agrega · remove() quita · toggle() pone/quita · contains() pregunta
+  document.querySelectorAll(".asiento").forEach(a => {
+    a.onclick = () => a.classList.toggle("ocupado");
+  });
+</script>
+<!-- Ejercicio -->
+<button id="agregar">Agregar pasajero</button>
+<ul id="lista"></ul>
+
+<script>
+  let n = 0;
+  document.getElementById("agregar").onclick = () => {
+    n++;
+    const li = document.createElement("li");   // 1. crea un <li> (aún invisible)
+    li.textContent = `Pasajero ${n} `;         // 2. le pone texto
+
+    const x = document.createElement("button");
+    x.textContent = "❌";
+    x.onclick = () => li.remove();             // remove(): lo borra de la página
+    li.append(x);                              // mete el botón dentro del li
+
+    document.getElementById("lista").append(li); // 3. lo pone en la lista (ya se ve)
+  };
+</script>
+
+<form id="form">
+  <input id="nombre" placeholder="Nombre">
+  <select id="clase">
+    <option>Económica</option><option>Ejecutiva</option>
+  </select>
+  <button>Reservar</button>
+</form>
+<p id="vista">Escribe un nombre...</p>
+<p id="log"></p>
+
+<script>
+  const nombre = document.getElementById("nombre");
+  const vista = document.getElementById("vista");
+
+  // input: se dispara con CADA letra
+  nombre.addEventListener("input", () => {
+    vista.textContent = "Vista previa: " + nombre.value;
+  });
+
+  // change: al elegir otra opción. e = el objeto evento
+  document.getElementById("clase").addEventListener("change", (e) => {
+    vista.textContent = "Clase: " + e.target.value;  // e.target = quién lo disparó
+  });
+
+  // keydown: e.key dice qué tecla fue
+  nombre.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") nombre.value = "";        // Esc borra
+  });
+
+  // submit: el form intenta recargar la página → lo evitamos
+  document.getElementById("form").addEventListener("submit", (e) => {
+    e.preventDefault();                               // ¡NO recargues!
+    document.getElementById("log").textContent = "✅ Reservado: " + nombre.value;
+  });
+</script>
