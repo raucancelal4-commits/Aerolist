@@ -184,18 +184,6 @@
             <button type="submit" class="btn btn-peligro">🗑️ Cancelar</button>
           </div>
         </form>
-        <!-- Ventana de confirmación. method="dialog" hace que los botones la cierren
-             y guarden su value ("si" o "no") en modal.returnValue -->
-        <dialog class="modal" id="modal">
-          <form method="dialog">
-            <h3 id="modal-titulo">¿Seguro?</h3>
-            <p id="modal-texto"></p>
-            <div class="botones">
-              <button value="no" class="btn btn-suave">No, volver</button>
-              <button value="si" class="btn btn-peligro">Sí, cancelar reserva</button>
-            </div>
-          </form>
-        </dialog>
       </section>
       <section class="contenido-pestana" id="pestana-listar">
         <h2>Pasajeros del vuelo</h2>
@@ -246,6 +234,21 @@
 
   <div class="toasts" id="toasts"></div>   <!-- aquí aparecen los mensajes flotantes -->
   <div class="tooltip" id="tooltip" hidden></div>   <!-- el globo de ayuda (empieza escondido) -->
+
+  <!-- Ventana de confirmación. method="dialog" hace que los botones la cierren
+       y guarden su value ("si" o "no") en modal.returnValue.
+       Está FUERA de las pestañas: si estuviera dentro de una pestaña oculta
+       (display:none) no se vería al abrirla desde otra pestaña (ej. Buscar). -->
+  <dialog class="modal" id="modal">
+    <form method="dialog">
+      <h3 id="modal-titulo">¿Seguro?</h3>
+      <p id="modal-texto"></p>
+      <div class="botones">
+        <button value="no" class="btn btn-suave">No, volver</button>
+        <button value="si" class="btn btn-peligro">Sí, cancelar reserva</button>
+      </div>
+    </form>
+  </dialog>
 
   
 
