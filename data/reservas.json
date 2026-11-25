@@ -1,5 +1,5 @@
 {
-  "siguiente_numero": 1018,
+  "siguiente_numero": 1019,
   "reservas": [
     {
       "numero": 1005,
@@ -86,18 +86,18 @@
       "asiento": "8B"
     },
     {
-      "numero": 1014,
-      "nombre": "Ronny",
-      "cedula": "0942483264",
-      "edad": 19,
-      "asiento": "6B"
-    },
-    {
       "numero": 1016,
       "nombre": "Ronny",
       "cedula": "0999999995",
       "edad": 20,
       "asiento": "8C"
+    },
+    {
+      "numero": 1018,
+      "nombre": "Ruth",
+      "cedula": "0999425135",
+      "edad": 10,
+      "asiento": "4F"
     }
   ]
 }
